@@ -2,9 +2,12 @@
 	/* createHTMLDocument polyfill */
 
 	var impl = document.implementation;
-	if (!impl) impl = document.implementation = {};
+	if (!impl) throw new Error("document.implementation is missing");
+	var proto = impl.__proto__ || DOMImplementation && DOMImplementation.prototype;
+	if (!proto) return; // use native
 	if (impl.createHTMLDocument && impl.createHTMLDocument.maxRetry) return;
 
+	// just always use our polyfill
 	var mother = document.cloneNode(false);
 	var html = mother.createElement('html');
 	mother.appendChild(html);
@@ -26,13 +29,15 @@
 	}
 
 	createHTMLDocument.maxRetry = 10;
-	impl.__proto__.createHTMLDocument = createHTMLDocument;
+	proto.createHTMLDocument = createHTMLDocument;
 })();
 
 
 
 (function() {
-	if (document.createDocumentFragment.maxRetry) return;
+	if (document.createDocumentFragment && document.createDocumentFragment.maxRetry) return;
+	var proto = document.__proto__ || Document && Document.prototype;
+	if (!proto) return;
 
 	function createDocumentFragment() {
 		var copy;
@@ -67,5 +72,5 @@
 		return frag;
 	})();
 
-	document.__proto__.createDocumentFragment = createDocumentFragment;
+	proto.createDocumentFragment = createDocumentFragment;
 })();
