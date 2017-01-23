@@ -4,7 +4,7 @@
   "description": "createHTMLDocument polyfill for IE up to 11",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "echo 'Open test/public/test.html in a browser and wait: it shouldn't fail"
   },
   "dependencies": {
     "promise-polyfill": "^6.0.2",
