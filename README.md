@@ -1,6 +1,6 @@
-# createHTMLDocument
+# create-html-document-polyfill
 
-createHTMLDocument and createDocumentFragment polyfill
+createHTMLDocument polyfill, with createDocumentFragment IE fix.
 
 ## Why
 
@@ -10,4 +10,9 @@ createHTMLDocument and createDocumentFragment polyfill
 - because these are very clever polyfills :)
 
 - because some IE 11 versions are full of shit
+
+
+## Usage
+
+Simply drop the file before anything using those functions.
 
