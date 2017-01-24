@@ -8,13 +8,18 @@
 	var fun = impl.createHTMLDocument;
 	if (fun && fun.maxRetry) return;
 
+	var mother;
+
 	function polyfillFun(str) {
-		var doc = document.cloneNode(false);
-		var html = doc.createElement('html');
-		doc.appendChild(html);
-		html.appendChild(doc.createElement('head'));
-		html.appendChild(doc.createElement('body'));
-		return doc;
+		if (!mother) {
+			var doc = document.cloneNode(false);
+			var html = doc.createElement('html');
+			doc.appendChild(html);
+			html.appendChild(doc.createElement('head'));
+			html.appendChild(doc.createElement('body'));
+			mother = doc;
+		}
+		return mother.cloneNode(true);
 	}
 
 	function createHTMLDocument(str) {
