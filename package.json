@@ -1,6 +1,6 @@
 {
   "name": "create-html-document-polyfill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "createHTMLDocument polyfill for IE up to 11",
   "main": "index.js",
   "dependencies": {},
