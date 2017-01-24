@@ -17,6 +17,13 @@ createHTMLDocument polyfill, with createDocumentFragment IE fix.
 Simply drop the file before anything using those functions.
 
 
+### BrowserStack
+
+This project runs its tests on multiple desktop and mobile browsers using [travis BrowserStack addon](https://docs.travis-ci.com/user/browserstack/), sponsored by [BrowserStack](browserstack.com).
+
+[![Browser Stack Logo](https://cloud.githubusercontent.com/assets/131406/22254249/534d889e-e254-11e6-8427-a759fb23b7bd.png)](https://www.browserstack.com/)
+
+
 ## Compatibility
 
 No automatic tests yet, but manually tested in real-life situation on:
