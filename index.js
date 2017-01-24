@@ -5,27 +5,30 @@
 	if (!impl) throw new Error("document.implementation is missing");
 	var proto = impl.__proto__ || DOMImplementation && DOMImplementation.prototype;
 	if (!proto) return; // use native
-	if (impl.createHTMLDocument && impl.createHTMLDocument.maxRetry) return;
+	var fun = impl.createHTMLDocument;
+	if (fun && fun.maxRetry) return;
 
-	// just always use our polyfill
-	var mother = document.cloneNode(false);
-	var html = mother.createElement('html');
-	mother.appendChild(html);
-	html.appendChild(mother.createElement('head'));
-	html.appendChild(mother.createElement('body'));
+	if (!fun) fun = function(str) {
+		var doc = document.cloneNode(false);
+		var html = doc.createElement('html');
+		doc.appendChild(html);
+		html.appendChild(doc.createElement('head'));
+		html.appendChild(doc.createElement('body'));
+		return doc;
+	};
 
 	function createHTMLDocument(str) {
-		var copy, tries = 0;
-		while (!copy && tries < impl.createHTMLDocument.maxRetry) {
+		var doc, tries = 0;
+		if (str == null) str = "";
+		while (!doc && tries < impl.createHTMLDocument.maxRetry) {
 			try {
-				copy = mother.cloneNode(true);
+				doc = fun.call(this, str);
 			} catch(ex) {
 			}
 			tries++;
 		}
-		if (!copy) throw new Error("createHTMLDocument failed\ntry increasing document.implementation.createHTMLDocument.maxRetry");
-		if (str != null) copy.title = str;
-		return copy;
+		if (!doc) throw new Error("createHTMLDocument failed\ntry increasing document.implementation.createHTMLDocument.maxRetry");
+		return doc;
 	}
 
 	createHTMLDocument.maxRetry = 10;
