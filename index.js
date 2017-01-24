@@ -8,14 +8,14 @@
 	var fun = impl.createHTMLDocument;
 	if (fun && fun.maxRetry) return;
 
-	if (!fun) fun = function(str) {
+	function polyfillFun(str) {
 		var doc = document.cloneNode(false);
 		var html = doc.createElement('html');
 		doc.appendChild(html);
 		html.appendChild(doc.createElement('head'));
 		html.appendChild(doc.createElement('body'));
 		return doc;
-	};
+	}
 
 	function createHTMLDocument(str) {
 		var doc, tries = 0;
@@ -29,6 +29,11 @@
 		}
 		if (!doc) throw new Error("createHTMLDocument failed\ntry increasing document.implementation.createHTMLDocument.maxRetry");
 		return doc;
+	}
+
+	if (!fun || document.documentMode == 11) {
+		// force IE11 to use our version
+		fun = polyfillFun;
 	}
 
 	createHTMLDocument.maxRetry = 10;
