@@ -1,4 +1,4 @@
-console.log("test.js");
+
 Page.setup(function(state) {
 	console.log("setup");
 	var root = document;
@@ -10,6 +10,12 @@ Page.setup(function(state) {
 		console.error("A", ex);
 		throw ex;
 	}
+	try {
+		var gg = newdoc.defaultView;
+	} catch(ex) {
+		console.error("doc.defaultView broken, jquery will fail", ex);
+	}
+
 	try {
 		frag = appendFragStr(newdoc, "<link href='' />\ntoto<p>test</p>");
 	} catch(ex) {
