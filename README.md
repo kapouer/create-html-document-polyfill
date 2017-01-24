@@ -26,4 +26,6 @@ No automatic tests yet, but manually tested in real-life situation on:
 - Android (Nexus 6,9 Galaxy S5)
 - iPhone, iPad (fails on iPad 2, workd on iPad 3)
 - Opera (fails on 12.16)
-- 
+
+Screenshots:
+- [take 1](https://www.browserstack.com/screenshots/46a766e4ada9f5ad93a40e085769c68432601026)
